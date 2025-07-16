@@ -7,11 +7,14 @@ export default function MangaDetail() {
   const [chapters, setChapters] = useState([]);
 
   useEffect(() => {
-    fetch(`https://api.mangadex.org/manga/${id}?includes[]=cover_art`)
+    const encodedMangaUrl = encodeURIComponent(`https://api.mangadex.org/manga/${id}?includes[]=cover_art`);
+    const encodedChapterUrl = encodeURIComponent(`https://api.mangadex.org/chapter?manga=${id}&translatedLanguage[]=en&order[chapter]=desc&limit=20`);
+
+    fetch(`/api/proxy?url=${encodedMangaUrl}`)
       .then(res => res.json())
       .then(data => setManga(data.data));
 
-    fetch(`https://api.mangadex.org/chapter?manga=${id}&translatedLanguage[]=en&order[chapter]=desc&limit=20`)
+    fetch(`/api/proxy?url=${encodedChapterUrl}`)
       .then(res => res.json())
       .then(data => setChapters(data.data));
   }, [id]);

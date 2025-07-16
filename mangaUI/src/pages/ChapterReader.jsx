@@ -6,7 +6,8 @@ export default function ChapterReader() {
   const [pages, setPages] = useState([]);
 
   useEffect(() => {
-    fetch(`https://api.mangadex.org/at-home/server/${id}`)
+    const encodedUrl = encodeURIComponent(`https://api.mangadex.org/at-home/server/${id}`);
+    fetch(`/api/proxy?url=${encodedUrl}`)
       .then(res => res.json())
       .then(data => {
         const baseUrl = data.baseUrl;

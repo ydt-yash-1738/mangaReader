@@ -8,18 +8,24 @@ export default function Home() {
   const fetchManga = (title = '') => {
     const fallback = 'naruto';
     const encodedTitle = encodeURIComponent(title || fallback);
-    fetch(`https://api.mangadex.org/manga?limit=12&includes[]=cover_art&title=${encodedTitle}`)
+    fetch(`/api/proxy?url=${encodedTitle}`)
       .then(res => res.json())
       .then(data => setMangaList(data.data));
   };
 
   useEffect(() => {
-    fetchManga('naruto');
+    const initialUrl = encodeURIComponent('https://api.mangadex.org/manga?limit=12&includes[]=cover_art&title=naruto');
+    fetch(`/api/proxy?url=${initialUrl}`)
+      .then(res => res.json())
+      .then(data => setMangaList(data.data));
   }, []);
 
   const handleSearch = (e) => {
     e.preventDefault();
-    fetchManga(query);
+    const encodedUrl = encodeURIComponent(`https://api.mangadex.org/manga?limit=12&includes[]=cover_art&title=${query}`);
+    fetch(`/api/proxy?url=${encodedUrl}`)
+      .then(res => res.json())
+      .then(data => setMangaList(data.data));
   };
 
   return (
@@ -58,7 +64,3 @@ export default function Home() {
     </div>
   );
 }
-
-
-
-// https://api.mangadex.org/manga?title=naruto&limit=10&includes[]=cover_art
