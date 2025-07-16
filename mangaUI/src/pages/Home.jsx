@@ -49,7 +49,7 @@ export default function Home() {
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
         {mangaList.map((manga) => {
           const cover = manga.relationships.find(rel => rel.type === "cover_art");
-          const coverUrl = `https://uploads.mangadex.org/covers/${manga.id}/${cover.attributes.fileName}.256.jpg`;
+          const coverUrl = `https://mangadex.org/covers/${manga.id}/${cover.attributes.fileName}.256.jpg`;
 
           return (
             <Link to={`/manga/${manga.id}`} key={manga.id} className="rounded overflow-hidden shadow hover:scale-105 transition">
