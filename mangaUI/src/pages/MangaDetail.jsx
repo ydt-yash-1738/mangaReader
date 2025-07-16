@@ -22,7 +22,7 @@ export default function MangaDetail() {
   if (!manga) return <div className="p-4">Loading...</div>;
 
   const cover = manga.relationships.find(rel => rel.type === "cover_art");
-  const coverUrl = `https://uploads.mangadex.org/covers/${manga.id}/${cover.attributes.fileName}.256.jpg`;
+  const coverUrl = `https://mangadex.org/covers/${manga.id}/${cover.attributes.fileName}.256.jpg`;
 
   return (
     <div className="p-4">
